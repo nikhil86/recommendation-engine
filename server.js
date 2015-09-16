@@ -10,6 +10,12 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + mongoUri);
 });
 
+app.configure(function(){
+  app.use(express.bodyParser());
+});
+
+require('./models/musician');
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

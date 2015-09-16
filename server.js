@@ -1,6 +1,6 @@
 var express = require('express'),
 	app = express(),
-	mongoose = require('mongoose'),
+	mongoose = require('mongoose');
 require('./routes')(app);
 
 var mongoUri = process.env.MONGOLAB_URI;

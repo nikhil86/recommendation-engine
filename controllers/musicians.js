@@ -1,3 +1,6 @@
+var mongoose = require('mongoose'),
+Musician = mongoose.model('Musician');
+
 exports.findAll = function(req, res){
   Musician.find({},function(err, results) {
     return res.send(results);

@@ -18,3 +18,10 @@ exports.import = function(req, res){
     return res.send(202);
   });
 };
+
+exports.findById = function(req, res){
+  var id = req.params.id;
+  Musician.findOne({'_id':id},function(err, result) {
+    return res.send(result);
+  });
+};

@@ -1,6 +1,10 @@
-var express = require('express');
-var app = express();
+var express = require('express'),
+	app = express(),
+	mongoose = require('mongoose'),
 require('./routes')(app);
+
+var mongoUri = process.env.MONGOLAB_URI;
+mongoose.connect(mongoUri);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

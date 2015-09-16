@@ -9,10 +9,6 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + mongoUri);
 });
 
-app.configure(function(){
-  app.use(express.bodyParser());
-});
-
 require('./models/musician');
 require('./routes')(app);
 

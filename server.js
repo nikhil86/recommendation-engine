@@ -9,20 +9,20 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + mongoUri);
 });
 
+
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'example.com');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+  next();
+};
+
+app.use(allowCrossDomain);
+
 require('./models/musician');
 require('./models/users');
 require('./routes')(app);
-
-app.all('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-Version');
-
-  if (!req.body) {
-    req.body = {};
-  }
-
-  next();
-});
 
 app.get('/', function(req, res) {
   res.send('Hello Seattle\n');

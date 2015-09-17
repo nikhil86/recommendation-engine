@@ -16,6 +16,7 @@ app.use(function(req, res, next) {
 });
 
 require('./models/musician');
+require('./models/users');
 require('./routes')(app);
 
 

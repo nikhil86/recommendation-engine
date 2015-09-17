@@ -7,4 +7,5 @@ module.exports = function(app){
     app.get('/musicians/:id', musicians.findById);
 
     app.get('users/:id', users.findById);
+    app.get('users', users.findAll);
 };

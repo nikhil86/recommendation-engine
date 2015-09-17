@@ -9,16 +9,25 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + mongoUri);
 });
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 require('./models/musician');
 require('./models/users');
 require('./routes')(app);
 
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-Version');
+
+  if (req.headers['x-version'] && parseInt(req.headers['x-version'], 10) !== config.app.version) {
+    res.send(426);
+    return;
+  }
+
+  if (!req.body) {
+    req.body = {};
+  }
+
+  next();
+});
 
 app.get('/', function(req, res) {
   res.send('Hello Seattle\n');

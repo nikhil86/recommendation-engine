@@ -10,7 +10,8 @@ exports.findById = function(req, res){
     upsert: true
   }, function (err, doc) {
     if(err) {
-      return null;
+      console.log(err);
+      return res.send(err);
     }
     return res.send(doc);
   });
@@ -23,5 +24,20 @@ exports.findAll = function(req, res){
 exports.update = function(req, res){
   console.log(req.body);
   console.log(req.params.id);
-  return res.send('got somethig to eat');
+  User.findOneAndUpdate({
+    uid: id
+  }, {
+        $push: {
+          "searchHistory": req.body
+        }
+  }, {
+    new: true,
+    upsert: true
+  }, function (err, doc) {
+    if(err) {
+      console.log(err);
+      return res.send(err);
+    }
+    return res.send(doc);
+  });
 };

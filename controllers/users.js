@@ -24,6 +24,7 @@ exports.findAll = function(req, res){
 exports.update = function(req, res){
   console.log(req.body);
   console.log(req.params.id);
+  var id = req.params.id;
   User.findOneAndUpdate({
     uid: id
   }, {

@@ -2,7 +2,7 @@ var express = require('express'),
 	app = express(),
 	mongoose = require('mongoose');
 
-var mongoUri = process.env.MONGOLAB_URI;
+var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017';
 mongoose.connect(mongoUri);
 var db = mongoose.connection;
 db.on('error', function () {

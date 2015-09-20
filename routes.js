@@ -6,6 +6,6 @@ module.exports = function(app){
     app.get('/import', musicians.import);
     app.get('/musicians/:id', musicians.findById);
 
-    app.get('users/:id', users.findById);
-    app.get('users', users.findAll);
+    app.get('/users/:id', users.findById);
+    app.get('/users', users.findAll);
 };

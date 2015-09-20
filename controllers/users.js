@@ -1,12 +1,21 @@
+var mongoose = require('mongoose'),
+User = mongoose.model('User');
+
 exports.findById = function(req, res){
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-Version');
   var id = req.params.id;
-  return res.send(id);
+  User.findOneAndUpdate({
+    uid: id
+  }, {}, {
+    new: true,
+    upsert: true
+  }, function (err, doc) {
+    if(err) {
+      return null;
+    }
+    return res.send(doc);
+  });
 };
 
 exports.findAll = function(req, res){
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-Version');
   return res.send('none found');
 };

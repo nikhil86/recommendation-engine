@@ -21,6 +21,6 @@ exports.findAll = function(req, res){
 };
 
 exports.update = function(req, res){
-  console.log(req.body);
-  return res.send(req);
+  console.log(req);
+  return res.send('got somethig to eat');
 };

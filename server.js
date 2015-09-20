@@ -1,5 +1,6 @@
 var express = require('express'),
 	app = express(),
+  bodyParser  = require("body-parser"),
 	mongoose = require('mongoose');
 
 var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017';
@@ -18,6 +19,7 @@ var allowCrossDomain = function(req, res, next) {
   next();
 };
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(allowCrossDomain);
 
 require('./models/musician');

@@ -4,11 +4,7 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
   uid: String,
   name: String,
-  arrivalDate: String,
-  departureDate: String,
-  arrivalAirport: String,
-  departureAirport: String,
-  journeyType: String
+  searchHistory: []
 });
 
 mongoose.model('User', UserSchema);

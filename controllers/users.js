@@ -19,3 +19,8 @@ exports.findById = function(req, res){
 exports.findAll = function(req, res){
   return res.send('none found');
 };
+
+exports.update = function(req, res){
+  console.log(req.body);
+  return res.send(req);
+};

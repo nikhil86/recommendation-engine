@@ -13,7 +13,11 @@ exports.findById = function(req, res){
       console.log(err);
       return res.send(err);
     }
-    return res.send(doc);
+    var data = {};
+    if(doc.searchHistory && doc.searchHistory.length > 0) {
+      data = doc.searchHistory[doc.searchHistory.length - 1];
+    }
+    return res.send(data);
   });
 };
 

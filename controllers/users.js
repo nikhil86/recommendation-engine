@@ -17,6 +17,8 @@ exports.findById = function(req, res){
     if(doc.searchHistory && doc.searchHistory.length > 0) {
       data = doc.searchHistory[doc.searchHistory.length - 1];
     }
+    res.header('Content-type','application/json');
+    res.header('Charset','utf8');
     return res.jsonp(data);
   });
 };

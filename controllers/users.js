@@ -19,7 +19,9 @@ exports.findById = function(req, res){
     }
     res.header('Content-type','application/json');
     res.header('Charset','utf8');
-    return res.jsonp(data);
+    var callback = req.query.callback || 'callback';
+
+    return res.send(callback + '(' + JSON.stringify(data) + ')');
   });
 };
 

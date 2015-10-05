@@ -33,6 +33,11 @@ exports.update = function(req, res){
   console.log(req.body);
   console.log(req.params.id);
   var id = req.params.id;
+  return User.findOneAsync({
+    uid: id
+  }).then(function (user) {
+    return res.send(user);
+  });
   //User.findOneAndUpdate({
   //  uid: id
   //}, {
@@ -47,6 +52,5 @@ exports.update = function(req, res){
   //    console.log(err);
   //    return res.send(err);
   //  }
-    return res.send(req.body);
   //});
 };

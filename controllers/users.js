@@ -51,10 +51,12 @@ exports.update = function(req, res){
       }
       user.totalVisits++;
       user.lastVisitTime = new Date();
+      console.log(user);
     }
     return user.saveAsync()
-    .then(function () {
-        return res.send(user);
+    .then(function (data) {
+        console.log('Done saving user', data);
+        return res.send(data);
     });
   });
 };

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-User = mongoose.model('User');
+  _ = require('underscore'),
+  User = mongoose.model('User');
 
 exports.findById = function(req, res){
   var id = req.params.id;
@@ -33,24 +34,27 @@ exports.update = function(req, res){
   console.log(req.body);
   console.log(req.params.id);
   var id = req.params.id;
+  var body = req.body;
   return User.findOneAsync({
     uid: id
-  }).then(function (user) {
-    return res.send(user);
+  })
+  .then(function (user) {
+    console.log(user);
+    if(!user) {
+      user = new User ({
+        uid: id
+      });
+      if(body.isNew) {
+        user.session[_.keys(user.session).length + 1] = [body];
+      } else {
+        user.session[_.keys(user.session).length].push(body);
+      }
+      user.totalVisits++;
+      user.lastVisitTime = new Date();
+    }
+    return user.saveAsync()
+    .then(function () {
+        return res.send(user);
+    });
   });
-  //User.findOneAndUpdate({
-  //  uid: id
-  //}, {
-  //      $push: {
-  //        "searchHistory": req.body
-  //      }
-  //}, {
-  //  new: true,
-  //  upsert: true
-  //}, function (err, doc) {
-  //  if(err) {
-  //    console.log(err);
-  //    return res.send(err);
-  //  }
-  //});
 };

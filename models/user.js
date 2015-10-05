@@ -9,7 +9,7 @@ var UserSchema = new Schema({
   totalPurchases: Number,
   lastVisitTime: Date,
   timeOfLastPurchase: Date,
-  bookingHistory: {}
+  session: {}
 });
 
 var Model = mongoose.model('User', UserSchema);

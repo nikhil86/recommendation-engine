@@ -46,11 +46,13 @@ exports.update = function(req, res){
       });
     }
     if(body.isNew) {
+      console.log('new session');
       user.sessions.push([body]);
     } else {
+      console.log('Existing Session');
       user.sessions[user.sessions.length - 1].push(body);
     }
-    user.totalVisits++;
+    user.totalVisits = user.totalVisits + 1;
     user.lastVisitTime = new Date();
     console.log(user);
     return user.saveAsync()

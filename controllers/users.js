@@ -47,6 +47,6 @@ exports.update = function(req, res){
   //    console.log(err);
   //    return res.send(err);
   //  }
-    return res.send(doc);
+    return res.send(req.body);
   //});
 };

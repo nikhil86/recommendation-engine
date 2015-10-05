@@ -33,20 +33,20 @@ exports.update = function(req, res){
   console.log(req.body);
   console.log(req.params.id);
   var id = req.params.id;
-  User.findOneAndUpdate({
-    uid: id
-  }, {
-        $push: {
-          "searchHistory": req.body
-        }
-  }, {
-    new: true,
-    upsert: true
-  }, function (err, doc) {
-    if(err) {
-      console.log(err);
-      return res.send(err);
-    }
+  //User.findOneAndUpdate({
+  //  uid: id
+  //}, {
+  //      $push: {
+  //        "searchHistory": req.body
+  //      }
+  //}, {
+  //  new: true,
+  //  upsert: true
+  //}, function (err, doc) {
+  //  if(err) {
+  //    console.log(err);
+  //    return res.send(err);
+  //  }
     return res.send(doc);
-  });
+  //});
 };

@@ -1,10 +1,18 @@
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+  Schema = mongoose.Schema,
+  B = require("bluebird");
 
 var UserSchema = new Schema({
   uid: String,
   name: String,
-  searchHistory: []
+  totalVisits: Number,
+  totalPurchases: Number,
+  lastVisitTime: Date,
+  timeOfLastPurchase: Date,
+  bookingHistory: {}
 });
 
-mongoose.model('User', UserSchema);
+var Model = mongoose.model('User', UserSchema);
+B.promisifyAll(Model);
+B.promisifyAll(Model.prototype);
+module.exports = Model;

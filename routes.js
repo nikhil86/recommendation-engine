@@ -1,6 +1,7 @@
 module.exports = function(app){
     var musicians = require('./controllers/musicians');
     var users = require('./controllers/users');
+    var topsis = require('./controllers/topsis');
 
     app.get('/musicians', musicians.findAll);
     app.get('/import', musicians.import);

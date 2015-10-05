@@ -46,9 +46,9 @@ exports.update = function(req, res){
       });
     }
     if(body.isNew) {
-      user.session[_.keys(user.session).length + 1] = [body];
+      user.sessions.push([body]);
     } else {
-      user.session[_.keys(user.session).length].push(body);
+      user.sessions[user.sessions.length - 1].push(body);
     }
     user.totalVisits++;
     user.lastVisitTime = new Date();

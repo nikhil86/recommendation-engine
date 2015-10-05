@@ -41,18 +41,18 @@ exports.update = function(req, res){
   .then(function (user) {
     console.log(user);
     if(!user) {
-      user = new User ({
+      user = new User({
         uid: id
       });
-      if(body.isNew) {
-        user.session[_.keys(user.session).length + 1] = [body];
-      } else {
-        user.session[_.keys(user.session).length].push(body);
-      }
-      user.totalVisits++;
-      user.lastVisitTime = new Date();
-      console.log(user);
     }
+    if(body.isNew) {
+      user.session[_.keys(user.session).length + 1] = [body];
+    } else {
+      user.session[_.keys(user.session).length].push(body);
+    }
+    user.totalVisits++;
+    user.lastVisitTime = new Date();
+    console.log(user);
     return user.saveAsync()
     .then(function (data) {
         console.log('Done saving user', data);

@@ -37,7 +37,7 @@ var credentials = {key: privateKey, cert: certificate};
 //require('./routes')(app);
 
 app.get('/', function(req, res) {
-  res.send('Hello Seattle\n');
+  res.send('Hello Seattle');
 });
 
 
@@ -48,4 +48,4 @@ httpsServer.listen(process.env.PORT || '3000');
 
 //});
 
-console.log('Recommendation engine is up and listening on port number: ' + httpsServer.address().port);
+console.log('Recommendation engine is up and listening on port number: ');

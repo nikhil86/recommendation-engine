@@ -1,12 +1,12 @@
 var express = require('express'),
   https = require('https'),
   fs = require('fs'),
-	app = express(),
-  bodyParser  = require("body-parser"),
-	mongoose = require('mongoose'),
-  L = require("./logger");;
+	app = express();
+  //bodyParser  = require("body-parser"),
+  //mongoose = require('mongoose'),
+  //L = require("./logger");
 
-////var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017';
+//var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017';
 //var mongoUri = process.env.MONGOLAB_URI || 'mongodb://heroku_jlkph440:5egmvqi1lq42rj3jea099ck4kq@ds027799.mongolab.com:27799/heroku_jlkph440';
 //
 //mongoose.connect(mongoUri);
@@ -37,9 +37,8 @@ var credentials = {key: privateKey, cert: certificate};
 //require('./routes')(app);
 
 app.get('/', function(req, res) {
-  res.send('Hello Seattle');
+  res.send('Hello Seattle\n');
 });
-
 
 app.set('port', process.env.PORT || '3000');
 var httpsServer = https.createServer(credentials, app);
@@ -48,4 +47,4 @@ httpsServer.listen(process.env.PORT || '3000');
 
 //});
 
-console.log('Recommendation engine is up and listening on port number: ');
+console.log('Recommendation engine is up and listening on port number: ' + 3000);

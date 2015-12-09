@@ -3,18 +3,18 @@ var express = require('express'),
   fs = require('fs'),
 	app = express();
   //bodyParser  = require("body-parser"),
-  //mongoose = require('mongoose'),
+  mongoose = require('mongoose'),
   //L = require("./logger");
 
 //var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017';
-//var mongoUri = process.env.MONGOLAB_URI || 'mongodb://heroku_jlkph440:5egmvqi1lq42rj3jea099ck4kq@ds027799.mongolab.com:27799/heroku_jlkph440';
-//
-//mongoose.connect(mongoUri);
-//var db = mongoose.connection;
-//db.on('error', function () {
-//  throw new Error('unable to connect to database at ' + mongoUri);
-//});
-//app.set("jsonp callback", true);
+var mongoUri = process.env.MONGOLAB_URI || 'mongodb://heroku_jlkph440:5egmvqi1lq42rj3jea099ck4kq@ds027799.mongolab.com:27799/heroku_jlkph440';
+
+mongoose.connect(mongoUri);
+var db = mongoose.connection;
+db.on('error', function () {
+  throw new Error('unable to connect to database at ' + mongoUri);
+});
+app.set("jsonp callback", true);
 //
 var privateKey  = fs.readFileSync('ssl/server.key', 'utf8');
 var certificate = fs.readFileSync('ssl/server.crt', 'utf8');

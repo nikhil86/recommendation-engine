@@ -3,7 +3,7 @@ var express = require('express'),
   fs = require('fs'),
 	app = express();
   //bodyParser  = require("body-parser"),
-  mongoose = require('mongoose'),
+  mongoose = require('mongoose');
   //L = require("./logger");
 
 //var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017';

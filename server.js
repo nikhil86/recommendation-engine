@@ -48,4 +48,4 @@ httpsServer.listen(process.env.PORT || '3000');
 
 //});
 
-console.log('Recommendation engine is up and listening on port number: ' + 3000);
+console.log('Recommendation engine is up and listening on port number: ' + httpsServer.address().port);

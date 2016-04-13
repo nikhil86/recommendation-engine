@@ -63,7 +63,17 @@ var preferences = [
   }
 ];
 
-UserSchema.statics.matchPreference = function (data) {
+UserSchema.statics.parsePreference = function (body) {
+  var currentTime = moment();
+  var dateOfDeparture = moment(body.departureDate.replace(/\//g, '-'));
+  var daysBookedInAdvance = dateOfDeparture.diff(currentTime, 'days');
+  var data = {
+    cabin: body.cabin,
+    daysToDeparture: daysBookedInAdvance,
+    child: body.CHD,
+    infant: body.INF,
+    adt: body.ADT
+  };
   var type = '';
   _.each(preferences, function (pref) {
     if (_.indexOf(pref.cabin, data.cabin) > -1 &&
@@ -79,20 +89,6 @@ UserSchema.statics.matchPreference = function (data) {
   console.log(type);
   console.log("-----------------------------");
   console.log("-----------------------------");
-};
-
-UserSchema.statics.parsePreference = function (body) {
-  var currentTime = moment();
-  var dateOfDeparture = moment(body.departureDate.replace(/\//g, '-'));
-  var daysBookedInAdvance = dateOfDeparture.diff(currentTime, 'days');
-  var data = {
-    cabin: body.cabin,
-    daysToDeparture: daysBookedInAdvance,
-    child: body.CHD,
-    infant: body.INF,
-    adt: body.ADT
-  };
-  UserSchema.matchPreference(data);
 };
 
 UserSchema.statics.getPreference = function (body) {

@@ -141,10 +141,13 @@ UserSchema.statics.parsePreference = function (body) {
         pref.child === parseInt(data.child) &&
         pref.infant === parseInt(data.infant) &&
         data.adt >= pref.adt.min && data.adt <= pref.adt.max) {
+      L.info("");
+      L.info("The user has been identified as a " + pref.type);
+      L.info("");
       options.preferences = pref.preferences
     }
   });
-  console.log(options);
+  return options;
 };
 
 UserSchema.statics.getPreference = function (body) {

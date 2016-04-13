@@ -40,10 +40,7 @@ exports.sort = function(req, res){
           return reject("Unable to retreive Last Search Data");
         }
 
-          User.parsePreference(searchData);
-        body.pref = User.getPreference(searchData);
-          console.log('-----------------');
-          console.log(body.pref)
+        body.pref = User.parsePreference(searchData);
         return resolve();
       }
     }).then(function () {

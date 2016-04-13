@@ -108,7 +108,7 @@ exports.parseFlights = function (flights) {
     "minStops":minStops,
     "maxStops":maxStops,
     "BestStops":minStops,
-    "WorstStops":Math.min(minStops * 5, Math.max(maxStops, minStops * 2))
+    "WorstStops":maxStops
   };
 
   var minTotalTravelTime = Infinity,
@@ -182,6 +182,13 @@ exports.scoreItins = function (pref, flights) {
               );
               flight.scores.topsis[i][k] += flight.scores.fareScore * preference.weights[k];
               break;
+            case "stops":
+              flight.scores.stopsScore = fuzzyMember(
+                  Math.log(parseFloat(flight.numberOfStops)),
+                  [0, 0, Math.log(flights.StopsRange.BestStops), Math.log(flights.StopsRange.WorstStops)]
+              );
+              flight.scores.stopsScore[i][k] += flight.scores.stopsScore * preference.weights[k];
+              break;
             case "time":
               flight.scores.timeScore = fuzzyMember(
                 Math.log(flight.totalTripDuration),
@@ -241,7 +248,8 @@ exports.scoreItins = function (pref, flights) {
       delete flight.scores.sPlus;
       delete flight.scores.topsis;
     });
-
+    console.log("----------------------------");
+    console.log(flights.flights);
     var sortedFlights = _.sortBy(flights.flights, function (flight) {
       return flight.topsisScore;
     }).reverse();

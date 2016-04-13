@@ -5,11 +5,11 @@ var L = require('../logger'),
 var businessUser = {
   preferences: [
     {"name": "fare", "desirability": 0},
-    {"name": "time", "desirability": 4},
+    {"name": "time", "desirability": 0},
     {"name": "stops", "desirability": 5},
     {
       "name": "outboundDepartTime",
-      "desirability": 2,
+      "desirability": 0,
       "best": {"start": 420, "end": 540}
     },
     {

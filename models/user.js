@@ -63,7 +63,7 @@ var preferences = [
   }
 ]
 
-UserSchema.statics.parsePreference = function (body)
+UserSchema.statics.parsePreference = function (body) {
   var currentTime = moment();
   var dateOfDeparture = moment(body.departureDate.replace(/\//g, '-'));
   var daysBookedInAdvance = dateOfDeparture.diff(currentTime, 'days');
@@ -73,7 +73,7 @@ UserSchema.statics.parsePreference = function (body)
     child: body.CHD,
     infant: body.INF,
     adt: body.ADT
-  }
+  };
   console.log("-----------------------------");
   console.log("-----------------------------");
   console.log("-----------------------------");

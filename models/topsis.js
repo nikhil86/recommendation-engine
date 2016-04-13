@@ -172,6 +172,8 @@ exports.scoreItins = function (pref, flights) {
     _.each(flights.flights, function (flight) {
       flight.scores = {};
       flight.scores.topsis = [];
+      console.log("----------------------------------------------------");
+      console.log(pref.preferences);
       _.each(pref.preferences, function (preference, i) {
         flight.scores.topsis.push([0, 0, 0, 0]);
         for (var k = 0; k < 4; k++) {

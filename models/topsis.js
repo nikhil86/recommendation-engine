@@ -183,10 +183,18 @@ exports.scoreItins = function (pref, flights) {
               flight.scores.topsis[i][k] += flight.scores.fareScore * preference.weights[k];
               break;
             case "stops":
-              flight.scores.stopsScore = fuzzyMember(
-                  Math.max(0,Math.log(parseFloat(flight.numberOfStops))),
-                  [0, 0, Math.log(flights.StopsRange.BestStops), Math.log(flights.StopsRange.WorstStops)]
-              );
+              if (parseFloat(flight.numberOfStops) === 0) {
+                  flight.scores.stopsScore = 1;
+                }
+              else if (parseFloat(flight.numberOfStops) === 1) {
+                flight.scores.stopsScore = 0.6;
+              }
+              else if (parseFloat(flight.numberOfStops) === 2) {
+                flight.scores.stopsScore = 0.3;
+              }
+              else {
+                flight.scores.stopsScore = 0;
+              }
               flight.scores.topsis[i][k] += flight.scores.stopsScore * preference.weights[k];
               break;
             case "time":

@@ -39,13 +39,14 @@ exports.sort = function(req, res){
         if(null === searchData) {
           return reject("Unable to retreive Last Search Data");
         }
+          console.log("-------------");
+        console.log(searchData)
+          console.log("---------------");
         body.pref = User.getPreference(searchData);
         return resolve();
       }
     }).then(function () {
         var parsedPref = Topsis.parsePrefs(body.pref);
-        console.log(parsedPref);
-        console.log('--------------');
         var parsedFlights = Topsis.parseFlights(body.flights);
         var data = Topsis.scoreItins(parsedPref, parsedFlights);
         var resData = {

@@ -25,9 +25,8 @@ exports.parsePrefs = function (prefString) {
       }
       for (var i = 0; i < pref.preferences.length; i++) {
         var prefItem = pref.preferences[i];
-        console.log(prefItem);
         if (prefItem.name === "time" || prefItem.name === "outboundTravelTime" ||
-            prefItem.name === "inboundTravelTime" || prefItem.name === "fare") {
+            prefItem.name === "inboundTravelTime" || prefItem.name === "fare" || prefItem.name === "stops") {
           delete prefItem.best;
           delete prefItem.worst;
         }
@@ -113,6 +112,21 @@ exports.parseFlights = function (flights) {
     "WorstTotalTravelTime":Math.min(5 * minTotalTravelTime, Math.max(2 * minTotalTravelTime, maxTotalTravelTime))
   };
 
+  var minStops = Infinity,
+      maxStops = -Infinity;
+
+  _.each(flights, function (flight) {
+    minStops = Math.min(minStops, parseFloat(flight.numberOfStops));
+    maxStops = Math.max(maxStops, parseFloat(flight.numberOfStops));
+  });
+
+  data.StopsRange = {
+    "minStops":minStops,
+    "maxStops":maxStops,
+    "BestFare":minFare,
+    "WorstFare":maxStops
+  };
+
   return data;
 };
 
@@ -163,6 +177,20 @@ exports.scoreItins = function (pref, flights) {
         flight.scores.topsis.push([0, 0, 0, 0]);
         for (var k = 0; k < 4; k++) {
           switch (preference.name) {
+            case "stops":
+                if(parseFloat(flight.numberOfStops) === 0) {
+                  flight.scores.stopsScore = 1;
+                }
+                  else if (parseFloat(flight.numberOfStops) === 1) {
+                  flight.scores.stopsScore = 0.6;
+                }
+                else if (parseFloat(flight.numberOfStops) === 2) {
+                  flight.scores.stopsScore = 0.3;
+                }
+                  else {
+                  flight.scores.stopsScore = 0;
+                }
+                flight.scores.topsis[i][k] += flight.scores.stopsScore * preference.weights[k];
             case "fare":
               flight.scores.fareScore = fuzzyMember(
                   Math.log(parseFloat(flight.totalPrice)),

@@ -184,8 +184,8 @@ exports.scoreItins = function (pref, flights) {
               break;
             case "stops":
               flight.scores.stopsScore = fuzzyMember(
-                  Math.log(parseFloat(flight.numberOfStops)),
-                  [0, 0, Math.log(flights.StopsRange.BestStops), Math.log(flights.StopsRange.WorstStops)]
+                  Math.log(Math.max(0.1, parseFloat(flight.numberOfStops))),
+                  [0, 0, Math.log(Math.max(0.1, flights.StopsRange.BestStops)), Math.log(flights.StopsRange.WorstStops)]
               );
               flight.scores.topsis[i][k] += flight.scores.stopsScore * preference.weights[k];
               break;

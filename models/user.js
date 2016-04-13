@@ -134,18 +134,17 @@ UserSchema.statics.parsePreference = function (body) {
     infant: body.INF,
     adt: body.ADT
   };
-  var type = '';
+  var options = {};
   _.each(preferences, function (pref) {
     if (_.indexOf(pref.cabin, data.cabin) > -1 &&
         data.daysToDeparture >= pref.daysToDepart.min && data.daysToDeparture <= pref.daysToDepart.max &&
         pref.child === parseInt(data.child) &&
         pref.infant === parseInt(data.infant) &&
         data.adt >= pref.adt.min && data.adt <= pref.adt.max) {
-      type = pref.type;
-      console.log(pref.preferences);
+      options.preferences = pref.preferences
     }
   });
-  console.log(type);
+  console.log(options);
 };
 
 UserSchema.statics.getPreference = function (body) {

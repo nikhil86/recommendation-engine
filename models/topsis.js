@@ -182,13 +182,17 @@ exports.scoreItins = function (pref, flights) {
               );
               flight.scores.topsis[i][k] += flight.scores.fareScore * preference.weights[k];
               break;
-            //case "stops":
-            //  flight.scores.stopsScore = fuzzyMember(
-            //      Math.log(parseFloat(flight.numberOfStops)),
-            //      [0, 0, Math.log(flights.StopsRange.BestStops), Math.log(flights.StopsRange.WorstStops)]
-            //  );
-            //  flight.scores.stopsScore[i][k] += flight.scores.stopsScore * preference.weights[k];
-            //  break;
+            case "stops":
+                console.log(flight.numberOfStops);
+                console.log(flights.StopsRange.BestStops);
+                console.log(flights.StopsRange.WorstStops);
+              console.log("----------------------------");
+              flight.scores.stopsScore = fuzzyMember(
+                  Math.log(parseFloat(flight.numberOfStops)),
+                  [0, 0, Math.log(flights.StopsRange.BestStops), Math.log(flights.StopsRange.WorstStops)]
+              );
+              flight.scores.stopsScore[i][k] += flight.scores.stopsScore * preference.weights[k];
+              break;
             case "time":
               flight.scores.timeScore = fuzzyMember(
                 Math.log(flight.totalTripDuration),
@@ -248,8 +252,8 @@ exports.scoreItins = function (pref, flights) {
       delete flight.scores.sPlus;
       delete flight.scores.topsis;
     });
-    console.log("----------------------------");
-    console.log(flights.flights);
+
+
     var sortedFlights = _.sortBy(flights.flights, function (flight) {
       return flight.topsisScore;
     }).reverse();

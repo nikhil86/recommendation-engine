@@ -155,6 +155,7 @@ var fuzzyLength = function (x) {
 
 exports.scoreItins = function (pref, flights) {
   if (pref.preferences) {
+    console.log(pref.preference);
     _.each(flights.flights, function (flight) {
       flight.scores = {};
       flight.scores.topsis = [];
@@ -228,7 +229,7 @@ exports.scoreItins = function (pref, flights) {
       delete flight.scores.sPlus;
       delete flight.scores.topsis;
     });
-
+    console.log(flights.flights);
     var sortedFlights = _.sortBy(flights.flights, function (flight) {
       return flight.topsisScore;
     }).reverse();

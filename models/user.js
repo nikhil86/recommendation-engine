@@ -21,7 +21,7 @@ var UserSchema = new Schema({
 var preferences = [
   {
     'type': 'Premium Business',
-    'cabin': ['Business', 'First'],
+    'cabin': ['BUSINESS', 'FIRST'],
     'daysToDepart': {
       min: 0,
       max: 80
@@ -35,7 +35,7 @@ var preferences = [
   },
   {
     'type': 'Economy Business',
-    'cabin': ['Economy'],
+    'cabin': ['ECONOMY'],
     'daysToDepart': {
       min: 2,
       max: 150
@@ -49,7 +49,7 @@ var preferences = [
   },
   {
     'type': 'Economy Leisure',
-    'cabin': ['Economy'],
+    'cabin': ['ECONOMY'],
     'daysToDepart': {
       min: 0,
       max: 80
@@ -57,8 +57,8 @@ var preferences = [
     'child': 0,
     'infant': 0,
     'adt': {
-      min: 1,
-      max: 2
+      min: 2,
+      max: 99
     }
   }
 ];

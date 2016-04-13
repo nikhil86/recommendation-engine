@@ -105,10 +105,10 @@ exports.parseFlights = function (flights) {
   });
 
   data.StopsRange = {
-    "MinFare":minStops,
-    "MaxFare":maxStops,
-    "BestFare":minStops,
-    "WorstFare":Math.min(minStops * 5, Math.max(maxStops, minStops * 2))
+    "minStops":minStops,
+    "maxStops":maxStops,
+    "BestStops":minStops,
+    "WorstStops":Math.min(minStops * 5, Math.max(maxStops, minStops * 2))
   };
 
   var minTotalTravelTime = Infinity,

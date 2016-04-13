@@ -18,6 +18,67 @@ var UserSchema = new Schema({
   preference: Schema.Types.Mixed
 });
 
+var preferences = [
+  {
+    'type': 'Premium Business',
+    'cabin': ['Business', 'First'],
+    'daysToDepart': {
+      min: 0,
+      max: 80
+    },
+    'child': 0,
+    'infant': 0,
+    'adt': {
+      min: 1,
+      max: 2
+    }
+  },
+  {
+    'type': 'Economy Business',
+    'cabin': ['Economy'],
+    'daysToDepart': {
+      min: 2,
+      max: 150
+    },
+    'child': 0,
+    'infant': 0,
+    'adt': {
+      min: 1,
+      max: 2
+    }
+  },
+  {
+    'type': 'Economy Leisure',
+    'cabin': ['Economy'],
+    'daysToDepart': {
+      min: 0,
+      max: 80
+    },
+    'child': 0,
+    'infant': 0,
+    'adt': {
+      min: 1,
+      max: 2
+    }
+  }
+]
+
+UserSchema.statics.parsePreference = function (body) {
+  var dateOfDeparture = moment(body.departureDate.replace(/\//g, '-'));
+  var daysBookedInAdvance = dateOfDeparture.diff(currentTime, 'days');
+  var data = {
+    cabin: body.cabin,
+    daysToDeparture: daysBookedInAdvance,
+    child: body.CHD,
+    infant: body.INF,
+    adt: body.ADT
+  }
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log(data);
+}
+
 UserSchema.statics.getPreference = function (body) {
   var currentTime = moment();
   var dateOfDeparture = moment(body.departureDate.replace(/\//g, '-'));
@@ -52,7 +113,7 @@ UserSchema.statics.getPreference = function (body) {
     } else {
       return PrefType.getDefaultPreference('leisureFamilyUser');
     }
-  }
+  };
 
   return PrefType.getDefaultPreference('default');
 };

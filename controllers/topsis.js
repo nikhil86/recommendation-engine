@@ -39,9 +39,8 @@ exports.sort = function(req, res){
         if(null === searchData) {
           return reject("Unable to retreive Last Search Data");
         }
-          console.log("-------------");
-        console.log(searchData)
-          console.log("---------------");
+
+          User.parsePreference(searchData);
         body.pref = User.getPreference(searchData);
         return resolve();
       }

@@ -249,7 +249,7 @@ exports.scoreItins = function (pref, flights) {
       delete flight.scores.topsis;
     });
 
-    console.log(flight.flights)
+    console.log(flights.flights)
     var sortedFlights = _.sortBy(flights.flights, function (flight) {
       return flight.topsisScore;
     }).reverse();

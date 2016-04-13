@@ -205,6 +205,10 @@ exports.scoreItins = function (pref, flights) {
               flight.scores.topsis[i][k] += flight.scores.timeScore * preference.weights[k];
               break;
             case "outboundDepartTime":
+                console.log(preference.worst.end);
+                console.log(preference.best.start);
+                console.log(preference.best.end);
+                console.log(preference.worst.start);
               flight.scores.obdtScore = fuzzyMember(
                   parseFloat(flight.departureTime),
                   [preference.worst.end, preference.best.start, preference.best.end, preference.worst.start],

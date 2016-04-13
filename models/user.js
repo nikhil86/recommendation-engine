@@ -73,7 +73,8 @@ var preferences = [
       {
         "name": "outboundDepartTime",
         "desirability": 2,
-        "best": {"start": 900, "end": 1000}
+        "best": {"start": 900, "end": 1000},
+        "worst": {"start": 180, "end": 300}
       },
       {
         "name": "arrivalArrivalTime",

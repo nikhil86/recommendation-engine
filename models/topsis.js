@@ -100,8 +100,8 @@ exports.parseFlights = function (flights) {
   var minStops = Infinity,
       maxStops = -Infinity;
   _.each(flights, function (flight) {
-    minStops = Math.min(minFare, parseFloat(flight.numberOfStops));
-    maxStops = Math.max(maxFare, parseFloat(flight.numberOfStops));
+    minStops = Math.min(minStops, parseFloat(flight.numberOfStops));
+    maxStops = Math.max(maxStops, parseFloat(flight.numberOfStops));
   });
 
   data.StopsRange = {

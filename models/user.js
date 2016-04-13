@@ -76,6 +76,8 @@ UserSchema.statics.parsePreference = function (body) {
   };
   var type = '';
   _.each(preferences, function (pref) {
+    console.log(pref.cabin);
+    console.log(data.cabin);
     console.log(_.indexOf(pref.cabin, data.cabin) > -1);
     console.log(data.daysToDeparture >= pref.daysToDepart.min && data.daysToDeparture <= pref.daysToDepart.max);
     console.log(pref.child === parseInt(data.child));

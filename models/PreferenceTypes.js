@@ -48,6 +48,7 @@ var leisureFamilyUser = {
   preferences: [
     {"name": "fare", "desirability": 4},
     {"name": "time", "desirability": 1},
+    {"name": "stops", "desirability": 5},
     {
       "name": "outboundDepartTime",
       "desirability": 0,
@@ -69,6 +70,7 @@ var leisureStudentUser = {
   preferences: [
   {"name": "fare", "desirability": 5},
   {"name": "time", "desirability": 0},
+  {"name": "stops", "desirability": 5},
   {
     "name": "outboundDepartTime",
     "desirability": 0,
@@ -90,6 +92,7 @@ var defaultPref = {
   preferences: [
     {"name": "fare", "desirability": 3},
     {"name": "time", "desirability": 2},
+    {"name": "stops", "desirability": 5},
     {
       "name": "outboundDepartTime",
       "desirability": 0,

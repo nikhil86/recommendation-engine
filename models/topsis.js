@@ -25,9 +25,8 @@ exports.parsePrefs = function (prefString) {
       }
       for (var i = 0; i < pref.preferences.length; i++) {
         var prefItem = pref.preferences[i];
-        console.log(prefItem);
         if (prefItem.name === "time" || prefItem.name === "outboundTravelTime" ||
-          prefItem.name === "inboundTravelTime" || prefItem.name === "fare") {
+          prefItem.name === "inboundTravelTime" || prefItem.name === "fare" || prefItem.name === "stops") {
           delete prefItem.best;
           delete prefItem.worst;
         }

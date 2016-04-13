@@ -44,7 +44,9 @@ exports.sort = function(req, res){
       }
     }).then(function () {
         var parsedPref = Topsis.parsePrefs(body.pref);
+        console.log(parsedPref);
         var parsedFlights = Topsis.parseFlights(body.flights);
+        console.log(body.flights);
         var data = Topsis.scoreItins(parsedPref, parsedFlights);
         var resData = {
           'preferences': body.pref,

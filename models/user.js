@@ -61,7 +61,25 @@ var preferences = [
       max: 2
     }
   }
-]
+];
+
+UserSchema.statics.matchPreference = function (data) {
+  var type = '';
+  _.each(preferences, function (pref) {
+    if (_.indexOf(pref.cabin, data.cabin) > -1 &&
+        data.daysToDeparture >= pref.daysToDepart.min && data.daysToDeparture <= pref.daysToDepart.max &&
+        pref.child === parseInt(data.child) &&
+        pref.infant === parseInt(data.infant) &&
+        data.adt >= pref.adt.min && data.adt <= pref.adt.max) {
+      type = pref.type;
+    }
+  });
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+  console.log(type);
+  console.log("-----------------------------");
+  console.log("-----------------------------");
+};
 
 UserSchema.statics.parsePreference = function (body) {
   var currentTime = moment();
@@ -74,11 +92,8 @@ UserSchema.statics.parsePreference = function (body) {
     infant: body.INF,
     adt: body.ADT
   };
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log("-----------------------------");
-  console.log(data);
-}
+  UserSchema.matchPreference(data);
+};
 
 UserSchema.statics.getPreference = function (body) {
   var currentTime = moment();

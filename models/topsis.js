@@ -186,13 +186,14 @@ exports.scoreItins = function (pref, flights) {
                 console.log(flight.numberOfStops);
                 console.log(flights.StopsRange.BestStops);
                 console.log(flights.StopsRange.WorstStops);
-              console.log("----------------------------");
+              console.log("-----------1-----------------");
               flight.scores.stopsScore = fuzzyMember(
                   Math.log(parseFloat(flight.numberOfStops)),
                   [0, 0, Math.log(flights.StopsRange.BestStops), Math.log(flights.StopsRange.WorstStops)]
               );
-              console.log("----------------------------");
+              console.log("------------2----------------");
               flight.scores.stopsScore[i][k] += flight.scores.stopsScore * preference.weights[k];
+              console.log("-----------3-----------------");
               break;
             case "time":
               flight.scores.timeScore = fuzzyMember(

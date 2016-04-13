@@ -191,6 +191,7 @@ exports.scoreItins = function (pref, flights) {
                   Math.log(parseFloat(flight.numberOfStops)),
                   [0, 0, Math.log(flights.StopsRange.BestStops), Math.log(flights.StopsRange.WorstStops)]
               );
+              console.log("----------------------------");
               flight.scores.stopsScore[i][k] += flight.scores.stopsScore * preference.weights[k];
               break;
             case "time":

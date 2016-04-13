@@ -76,11 +76,17 @@ UserSchema.statics.parsePreference = function (body) {
   };
   var type = '';
   _.each(preferences, function (pref) {
+    console.log(_.indexOf(pref.cabin, data.cabin) > -1);
+    console.log(data.daysToDeparture >= pref.daysToDepart.min && data.daysToDeparture <= pref.daysToDepart.max);
+    console.log(pref.child === parseInt(data.child));
+    console.log(pref.infant === parseInt(data.infant));
+    console.log(data.adt >= pref.adt.min && data.adt <= pref.adt.max);console.log('----------END--------');
     if (_.indexOf(pref.cabin, data.cabin) > -1 &&
         data.daysToDeparture >= pref.daysToDepart.min && data.daysToDeparture <= pref.daysToDepart.max &&
         pref.child === parseInt(data.child) &&
         pref.infant === parseInt(data.infant) &&
         data.adt >= pref.adt.min && data.adt <= pref.adt.max) {
+      console.log('here');
       type = pref.type;
     }
   });

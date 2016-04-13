@@ -42,6 +42,8 @@ exports.sort = function(req, res){
 
           User.parsePreference(searchData);
         body.pref = User.getPreference(searchData);
+          console.log('-----------------');
+          console.log(body.pref)
         return resolve();
       }
     }).then(function () {

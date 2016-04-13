@@ -172,8 +172,6 @@ exports.scoreItins = function (pref, flights) {
     _.each(flights.flights, function (flight) {
       flight.scores = {};
       flight.scores.topsis = [];
-      console.log("----------------------------------------------------");
-      console.log(pref.preferences);
       _.each(pref.preferences, function (preference, i) {
         flight.scores.topsis.push([0, 0, 0, 0]);
         for (var k = 0; k < 4; k++) {
@@ -207,10 +205,6 @@ exports.scoreItins = function (pref, flights) {
               flight.scores.topsis[i][k] += flight.scores.timeScore * preference.weights[k];
               break;
             case "outboundDepartTime":
-                console.log(preference.worst.end);
-                console.log(preference.best.start);
-                console.log(preference.best.end);
-                console.log(preference.worst.start);
               flight.scores.obdtScore = fuzzyMember(
                   parseFloat(flight.departureTime),
                   [preference.worst.end, preference.best.start, preference.best.end, preference.worst.start],
@@ -266,7 +260,6 @@ exports.scoreItins = function (pref, flights) {
       delete flight.scores.topsis;
     });
 
-    console.log(flights.flights);
     var sortedFlights = _.sortBy(flights.flights, function (flight) {
       return flight.topsisScore;
     }).reverse();

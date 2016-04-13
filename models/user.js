@@ -31,7 +31,27 @@ var preferences = [
     'adt': {
       min: 1,
       max: 2
-    }
+    },
+    preferences: [
+      {"name": "fare", "desirability": 0},
+      {"name": "time", "desirability": 4},
+      {"name": "stops", "desirability": 0},
+      {
+        "name": "outboundDepartTime",
+        "desirability": 2,
+        "best": {"start": 420, "end": 540}
+      },
+      {
+        "name": "arrivalArrivalTime",
+        "desirability": 0,
+        "best": {"start": 360, "end": 420}
+      },
+      {
+        "name": "connectionQuality",
+        "desirability": 0,
+        "best": {"start": 360, "end": 420}
+      }
+    ]
   },
   {
     'type': 'Economy Business',
@@ -45,7 +65,27 @@ var preferences = [
     'adt': {
       min: 1,
       max: 2
-    }
+    },
+    preferences: [
+      {"name": "fare", "desirability": 1},
+      {"name": "time", "desirability": 2},
+      {"name": "stops", "desirability": 0},
+      {
+        "name": "outboundDepartTime",
+        "desirability": 2,
+        "best": {"start": 420, "end": 540}
+      },
+      {
+        "name": "arrivalArrivalTime",
+        "desirability": 2,
+        "best": {"start": 360, "end": 420}
+      },
+      {
+        "name": "connectionQuality",
+        "desirability": 1,
+        "best": {"start": 360, "end": 420}
+      }
+    ]
   },
   {
     'type': 'Economy Leisure',
@@ -59,7 +99,27 @@ var preferences = [
     'adt': {
       min: 2,
       max: 99
-    }
+    },
+    preferences: [
+      {"name": "fare", "desirability": 5},
+      {"name": "time", "desirability": 0},
+      {"name": "stops", "desirability": 0},
+      {
+        "name": "outboundDepartTime",
+        "desirability": 0,
+        "best": {"start": 420, "end": 540}
+      },
+      {
+        "name": "arrivalArrivalTime",
+        "desirability": 0,
+        "best": {"start": 360, "end": 420}
+      },
+      {
+        "name": "connectionQuality",
+        "desirability": 0,
+        "best": {"start": 360, "end": 420}
+      }
+    ]
   }
 ];
 
@@ -76,27 +136,16 @@ UserSchema.statics.parsePreference = function (body) {
   };
   var type = '';
   _.each(preferences, function (pref) {
-    console.log(pref.cabin);
-    console.log(data.cabin);
-    console.log(_.indexOf(pref.cabin, data.cabin) > -1);
-    console.log(data.daysToDeparture >= pref.daysToDepart.min && data.daysToDeparture <= pref.daysToDepart.max);
-    console.log(pref.child === parseInt(data.child));
-    console.log(pref.infant === parseInt(data.infant));
-    console.log(data.adt >= pref.adt.min && data.adt <= pref.adt.max);console.log('----------END--------');
     if (_.indexOf(pref.cabin, data.cabin) > -1 &&
         data.daysToDeparture >= pref.daysToDepart.min && data.daysToDeparture <= pref.daysToDepart.max &&
         pref.child === parseInt(data.child) &&
         pref.infant === parseInt(data.infant) &&
         data.adt >= pref.adt.min && data.adt <= pref.adt.max) {
-      console.log('here');
       type = pref.type;
+      console.log(pref.preferences);
     }
   });
-  console.log("-----------------------------");
-  console.log("-----------------------------");
   console.log(type);
-  console.log("-----------------------------");
-  console.log("-----------------------------");
 };
 
 UserSchema.statics.getPreference = function (body) {

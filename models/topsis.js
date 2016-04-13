@@ -97,6 +97,20 @@ exports.parseFlights = function (flights) {
     "WorstFare":Math.min(minFare * 5, Math.max(maxFare, minFare * 2))
   };
 
+  var minStops = Infinity,
+      maxStops = -Infinity;
+  _.each(flights, function (flight) {
+    minStops = Math.min(minFare, parseFloat(flight.numberOfStops));
+    maxStops = Math.max(maxFare, parseFloat(flight.numberOfStops));
+  });
+
+  data.StopsRange = {
+    "MinFare":minStops,
+    "MaxFare":maxStops,
+    "BestFare":minStops,
+    "WorstFare":Math.min(minStops * 5, Math.max(maxStops, minStops * 2))
+  };
+
   var minTotalTravelTime = Infinity,
       maxTotalTravelTime = -Infinity;
 

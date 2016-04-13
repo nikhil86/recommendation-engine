@@ -230,6 +230,9 @@ exports.scoreItins = function (pref, flights) {
                     1440
                 );
               });
+                if(parseFloat(flight.numberOfStops) === 0) {
+                  flight.scores.connQualityScore = 1;
+                }
               flight.scores.topsis[i][k] += flight.scores.connQualityScore * preference.weights[k];
               break;
           }

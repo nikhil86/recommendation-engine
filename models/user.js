@@ -67,8 +67,8 @@ var preferences = [
       max: 2
     },
     preferences: [
-      {"name": "fare", "desirability": 1},
-      {"name": "time", "desirability": 2},
+      {"name": "fare", "desirability": 0},
+      {"name": "time", "desirability": 0},
       {"name": "stops", "desirability": 0},
       {
         "name": "outboundDepartTime",
@@ -77,12 +77,12 @@ var preferences = [
       },
       {
         "name": "arrivalArrivalTime",
-        "desirability": 2,
+        "desirability": 0,
         "best": {"start": 360, "end": 420}
       },
       {
         "name": "connectionQuality",
-        "desirability": 1,
+        "desirability": 0,
         "best": {"start": 360, "end": 420}
       }
     ]
@@ -148,45 +148,6 @@ UserSchema.statics.parsePreference = function (body) {
     }
   });
   return options;
-};
-
-UserSchema.statics.getPreference = function (body) {
-  var currentTime = moment();
-  var dateOfDeparture = moment(body.departureDate.replace(/\//g, '-'));
-  var daysBookedInAdvance = dateOfDeparture.diff(currentTime, 'days');
-  if(body.cabin.toLowerCase() === 'business') {
-    if(body.ADT == 1 || body.ADT == 2) {
-      if(daysBookedInAdvance <= 15) {
-        if (body.CHD == 0 && body.INF == 0) {
-          return PrefType.getDefaultPreference('businessUser');
-        } else {
-          return PrefType.getDefaultPreference('leisureHighEndUser');
-        }
-      } else {
-        return PrefType.getDefaultPreference('leisureHighEndUser');
-      }
-    } else {
-      return PrefType.getDefaultPreference('leisureHighEndUser');
-    }
-  }
-
-  if (daysBookedInAdvance > 15) {
-    if (body.CHD == 0 && body.INF == 0) {
-      return PrefType.getDefaultPreference('leisureStudentUser');
-    } else {
-      return PrefType.getDefaultPreference('leisureFamilyUser');
-    }
-  }
-
-  if(daysBookedInAdvance <= 15) {
-    if (body.CHD == 0 && body.INF == 0) {
-      return PrefType.getDefaultPreference('businessUser');
-    } else {
-      return PrefType.getDefaultPreference('leisureFamilyUser');
-    }
-  };
-
-  return PrefType.getDefaultPreference('default');
 };
 
 UserSchema.methods.toBriefJSON = function () {

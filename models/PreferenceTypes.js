@@ -20,7 +20,7 @@ var businessUser = {
     {
       "name": "connectionQuality",
       "desirability": 3,
-      "best": {"start": 360, "end": 420}
+      "best": {"start": 800, "end": 900}
     }
   ]
 };

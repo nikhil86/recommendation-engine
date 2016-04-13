@@ -184,7 +184,7 @@ exports.scoreItins = function (pref, flights) {
               break;
             case "stops":
               flight.scores.stopsScore = fuzzyMember(
-                  Math.max(1, Math.log(parseFloat(flight.numberOfStops))),
+                  Math.max(0,Math.log(parseFloat(flight.numberOfStops))),
                   [0, 0, Math.log(flights.StopsRange.BestStops), Math.log(flights.StopsRange.WorstStops)]
               );
               flight.scores.topsis[i][k] += flight.scores.stopsScore * preference.weights[k];
@@ -249,7 +249,7 @@ exports.scoreItins = function (pref, flights) {
       delete flight.scores.topsis;
     });
 
-    console.log(flights.flights)
+    console.log(flights.flights);
     var sortedFlights = _.sortBy(flights.flights, function (flight) {
       return flight.topsisScore;
     }).reverse();

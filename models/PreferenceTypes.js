@@ -6,6 +6,7 @@ var businessUser = {
   preferences: [
     {"name": "fare", "desirability": 0},
     {"name": "time", "desirability": 4},
+    {"name": "stops", "desirability": 5},
     {
       "name": "outboundDepartTime",
       "desirability": 2,
@@ -27,6 +28,7 @@ var leisureHighEndUser = {
   preferences: [
     {"name": "fare", "desirability": 1},
     {"name": "time", "desirability": 3},
+    {"name": "stops", "desirability": 5},
     {
       "name": "outboundDepartTime",
       "desirability": 2,

@@ -43,7 +43,7 @@ var preferences = [
         "worst": {"start": 1140, "end": 1260}
       },
       {
-        "name": "arrivalArrivalTime",
+        "name": "outboundArrivalTime",
         "desirability": 4,
         "best": {"start": 360, "end": 420},
         "worst": {"start": 1080, "end": 1140}
@@ -79,9 +79,10 @@ var preferences = [
         "worst": {"start": 180, "end": 240}
       },
       {
-        "name": "arrivalArrivalTime",
+        "name": "outboundArrivalTime",
         "desirability": "3",
-        "best": {"start": "360", "end": "420"}
+        "best": {"start": "360", "end": "420"},
+        "worst": {"start": 1080, "end": 1140}
       },
       {
         "name": "connectionQuality",
@@ -114,7 +115,7 @@ var preferences = [
         "worst": {"start": 1140, "end": 1260}
       },
       {
-        "name": "arrivalArrivalTime",
+        "name": "outboundArrivalTime",
         "desirability": 4,
         "best": {"start": 360, "end": 420},
         "worst": {"start": 1080, "end": 1140}

@@ -69,12 +69,12 @@ var preferences = [
       max: 2
     },
     preferences: [
-      {"name": "fare", "desirability": 0},
+      {"name": "fare", "desirability": 4},
       {"name": "time", "desirability": 0},
-      {"name": "stops", "desirability": 0},
+      {"name": "stops", "desirability": 0.5},
       {
         "name": "outboundDepartTime",
-        "desirability": 0,
+        "desirability": 2.65,
         "best": {"start": 900, "end": 1000},
         "worst": {"start": 180, "end": 240}
       },
@@ -86,7 +86,7 @@ var preferences = [
       },
       {
         "name": "connectionQuality",
-        "desirability": 0,
+        "desirability": 1,
         "best": {"start": 360, "end": 420}
       }
     ]

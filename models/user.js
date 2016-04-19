@@ -80,8 +80,8 @@ var preferences = [
       },
       {
         "name": "outboundArrivalTime",
-        "desirability": "3",
-        "best": {"start": "360", "end": "420"},
+        "desirability": 3,
+        "best": {"start": 360, "end": 420},
         "worst": {"start": 1080, "end": 1140}
       },
       {

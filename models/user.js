@@ -33,18 +33,20 @@ var preferences = [
       max: 2
     },
     preferences: [
-      {"name": "fare", "desirability": 0},
-      {"name": "time", "desirability": 4},
-      {"name": "stops", "desirability": 0},
+      {"name": "fare", "desirability": 2},
+      {"name": "time", "desirability": 2},
+      {"name": "stops", "desirability": 1},
       {
         "name": "outboundDepartTime",
-        "desirability": 2,
-        "best": {"start": 420, "end": 540}
+        "desirability": 3,
+        "best": {"start": 420, "end": 540},
+        "worst": {"start": 1140, "end": 1260}
       },
       {
         "name": "arrivalArrivalTime",
-        "desirability": 0,
-        "best": {"start": 360, "end": 420}
+        "desirability": 4,
+        "best": {"start": 360, "end": 420},
+        "worst": {"start": 1080, "end": 1140}
       },
       {
         "name": "connectionQuality",
@@ -67,23 +69,24 @@ var preferences = [
       max: 2
     },
     preferences: [
-      {"name": "fare", "desirability": 0},
+      {"name": "fare", "desirability": 4},
       {"name": "time", "desirability": 0},
-      {"name": "stops", "desirability": 0},
+      {"name": "stops", "desirability": 1},
       {
         "name": "outboundDepartTime",
         "desirability": 2,
         "best": {"start": 900, "end": 1000},
-        "worst": {"start": 180, "end": 300}
+        "worst": {"start": 180, "end": 240}
       },
       {
         "name": "arrivalArrivalTime",
-        "desirability": 0,
-        "best": {"start": 360, "end": 420}
+        "desirability": 3,
+        "best": {"start": 360, "end": 420},
+        "worst": {"start": 1080, "end": 1140}
       },
       {
         "name": "connectionQuality",
-        "desirability": 0,
+        "desirability": 1,
         "best": {"start": 360, "end": 420}
       }
     ]
@@ -102,22 +105,24 @@ var preferences = [
       max: 99
     },
     preferences: [
-      {"name": "fare", "desirability": 5},
+      {"name": "fare", "desirability": 4},
       {"name": "time", "desirability": 0},
-      {"name": "stops", "desirability": 0},
+      {"name": "stops", "desirability": 2},
       {
         "name": "outboundDepartTime",
-        "desirability": 0,
-        "best": {"start": 420, "end": 540}
+        "desirability": 3,
+        "best": {"start": 420, "end": 540},
+        "worst": {"start": 1140, "end": 1260}
       },
       {
         "name": "arrivalArrivalTime",
-        "desirability": 0,
-        "best": {"start": 360, "end": 420}
+        "desirability": 4,
+        "best": {"start": 360, "end": 420},
+        "worst": {"start": 1080, "end": 1140}
       },
       {
         "name": "connectionQuality",
-        "desirability": 0,
+        "desirability": 1,
         "best": {"start": 360, "end": 420}
       }
     ]

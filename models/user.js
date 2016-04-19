@@ -80,8 +80,8 @@ var preferences = [
       },
       {
         "name": "arrivalArrivalTime",
-        "desirability": 3,
-        "best": {"start": 360, "end": 420}
+        "desirability": "3",
+        "best": {"start": "360", "end": "420"}
       },
       {
         "name": "connectionQuality",

@@ -69,7 +69,7 @@ var preferences = [
       max: 2
     },
     preferences: [
-      {"name": "fare", "desirability": 4},
+      {"name": "fare", "desirability": 3},
       {"name": "time", "desirability": 0},
       {"name": "stops", "desirability": 1},
       {

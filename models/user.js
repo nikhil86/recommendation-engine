@@ -74,7 +74,7 @@ var preferences = [
       {"name": "stops", "desirability": 1},
       {
         "name": "outboundDepartTime",
-        "desirability": 2,
+        "desirability": 0,
         "best": {"start": 900, "end": 1000},
         "worst": {"start": 180, "end": 240}
       },

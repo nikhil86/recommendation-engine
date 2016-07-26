@@ -20,7 +20,7 @@ var UserSchema = new Schema({
 
 var preferences = [
   {
-    'type': 'Premium Business',
+    'type': 'Business',
     'cabin': ['BUSINESS', 'FIRST'],
     'daysToDepart': {
       min: 0,
@@ -33,97 +33,61 @@ var preferences = [
       max: 2
     },
     preferences: [
-      {"name": "fare", "desirability": 1.701649435},
-      {"name": "time", "desirability": 0.146093658},
-      {"name": "stops", "desirability": 0.296136761},
+      {"name": "fare", "desirability": 1},
+      {"name": "time", "desirability": 3},
+      {"name": "stops", "desirability": 2},
       {
         "name": "outboundDepartTime",
-        "desirability": 4,
+        "desirability": 0,
         "best": {"start": 580, "end": 700},
         "worst": {"start": 1260, "end": 1380}
       },
       {
         "name": "outboundArrivalTime",
-        "desirability": 3.459002268,
-        "best": {"start": 660, "end": 780},
+        "desirability": 4,
+        "best": {"start": 480, "end": 600},
         "worst": {"start": 1380, "end": 1439}
       },
       {
         "name": "connectionQuality",
-        "desirability": 1.16605023,
+        "desirability": 1,
         "best": {"start": 60, "end": 120}
       }
     ]
   },
   {
-    'type': 'Economy Business',
+    'type': 'Leisure',
     'cabin': ['ECONOMY'],
     'daysToDepart': {
-      min: 2,
+      min: 0,
       max: 150
     },
     'child': 0,
     'infant': 0,
     'adt': {
       min: 1,
-      max: 2
+      max: 10
     },
     preferences: [
-      {"name": "fare", "desirability": 1.235387751},
-      {"name": "time", "desirability": 0},
-      {"name": "stops", "desirability": 0},
+      {"name": "fare", "desirability": 5},
+      {"name": "time", "desirability": 3},
+      {"name": "stops", "desirability": 2},
       {
         "name": "outboundDepartTime",
-        "desirability": 3.596762574,
+        "desirability": 0,
         "best": {"start": 540, "end": 660},
         "worst": {"start": 1260, "end": 1380}
       },
       {
         "name": "outboundArrivalTime",
-        "desirability": 4,
-        "best": {"start": 600, "end": 720},
+        "desirability": 1,
+        "best": {"start": 360, "end": 420},
         "worst": {"start": 1320, "end": 1400}
       },
       {
         "name": "connectionQuality",
-        "desirability": 0.10135765,
+        "desirability": 1,
         "best": {"start": 60, "end": 120}
-      }
-    ]
-  },
-  {
-    'type': 'Economy Leisure',
-    'cabin': ['ECONOMY'],
-    'daysToDepart': {
-      min: 0,
-      max: 80
-    },
-    'child': 0,
-    'infant': 0,
-    'adt': {
-      min: 2,
-      max: 99
-    },
-    preferences: [
-      {"name": "fare", "desirability": 2.465863001},
-      {"name": "time", "desirability": 0.151559641},
-      {"name": "stops", "desirability": 0},
-      {
-        "name": "outboundDepartTime",
-        "desirability": 0,
-        "best": {"start": 180, "end": 300},
-        "worst": {"start": 900, "end": 1020}
-      },
-      {
-        "name": "outboundArrivalTime",
-        "desirability": 4,
-        "best": {"start": 480, "end": 600},
-        "worst": {"start": 1200, "end": 1320}
-      },
-      {
-        "name": "connectionQuality",
-        "desirability": 0.345279835,
-        "best": {"start": 90, "end": 180}
       }
     ]
   }

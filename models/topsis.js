@@ -1,7 +1,6 @@
 var L = require('../logger'),
-  _ = require('underscore');
+    _ = require('underscore');
 
-// checks if an item is in an array
 var isInArray = function (item, arr) {
   var answer = (item === arr);
   if (arr && arr.length) {
@@ -32,15 +31,15 @@ exports.parsePrefs = function (prefString) {
           delete prefItem.worst;
         }
         else if (prefItem.name === "outboundDepartTime" || prefItem.name === "outboundArrivalTime" ||
-                 prefItem.name === "inboundDepartTime" || prefItem.name === "inboundArrivalTime" ||
-                 prefItem.name === "connectionQuality") {
+            prefItem.name === "inboundDepartTime" || prefItem.name === "inboundArrivalTime" ||
+            prefItem.name === "connectionQuality") {
           prefItem.best = prefItem.best || {"start":null, "end":null};
           prefItem.worst = prefItem.worst || {"start":null, "end":null};
         } else if (prefItem.name === "carrier") {
           prefItem.best = prefItem.best || [];
           prefItem.worst = prefItem.worst || [];
         } else if (prefItem.name === "depDate" || prefItem.name === "retDate" || prefItem.name === "los" ||
-                   prefItem.name === "connectPoint") {
+            prefItem.name === "connectPoint") {
           prefItem.best = prefItem.best || [];
           prefItem.worst = prefItem.worst || [];
         }
@@ -56,8 +55,8 @@ exports.parsePrefs = function (prefString) {
 
         if (isInArray(prefItem.name, prefnames)) {
           warnings.push("Preference " + prefItem.name + " has appeared in the request multiple times." +
-                        " Only the first occurence was effective."
-                       )
+              " Only the first occurence was effective."
+          )
         } else {
           if (prefItem.desirability > 0) {
             preference.preferences.push(prefItem);
@@ -82,7 +81,7 @@ exports.parsePrefs = function (prefString) {
 
 exports.parseFlights = function (flights) {
   var minFare = Infinity,
-    maxFare = -Infinity;
+      maxFare = -Infinity;
   var data = {};
   data.flights = flights;
 
@@ -99,7 +98,7 @@ exports.parseFlights = function (flights) {
   };
 
   var minTotalTravelTime = Infinity,
-    maxTotalTravelTime = -Infinity;
+      maxTotalTravelTime = -Infinity;
 
   _.each(flights, function (flight) {
     minTotalTravelTime = Math.min(minTotalTravelTime, flight.totalTripDuration);
@@ -114,7 +113,7 @@ exports.parseFlights = function (flights) {
   };
 
   var minStops = Infinity,
-    maxStops = -Infinity;
+      maxStops = -Infinity;
 
   _.each(flights, function (flight) {
     minStops = Math.min(minStops, parseFloat(flight.numberOfStops));
@@ -168,130 +167,100 @@ var fuzzyLength = function (x) {
   return Math.sqrt(lsqr);
 };
 
-// 1 For each flight, for each attribute, calculate value
-// 2 Each attribute is divided by sum of squares of its values
-// 3 Construct weighted standardized decision matrix by multiplying attributes weight to each rating
-// 4 Determine ideal solution and negative idea solution
-// 5 Determine separation from ideal solution and negative ideal solution
-// 6 Determine relative closeness to ideal solution
 exports.scoreItins = function (pref, flights) {
   if (pref.preferences) {
-
-    _.each(flights.flights, function(flight) {
-
+    _.each(flights.flights, function (flight) {
       flight.scores = {};
-      //flight.scores.topsis = [];
-
-      _.each(pref.preferences, function(preference, i) {
-        //flight.scores.topsis.push([0, 0, 0, 0]);
-        //for (var k = 0; k < 4; k++) {
+      flight.scores.topsis = [];
+      _.each(pref.preferences, function (preference, i) {
+        flight.scores.topsis.push([0, 0, 0, 0]);
+        for (var k = 0; k < 4; k++) {
           switch (preference.name) {
-
             case "stops":
-              if (parseFloat(flight.numberOfStops) === 0) {
-                flight.scores.stops = 1;
-              } else if (parseFloat(flight.numberOfStops) === 1) {
-                flight.scores.stops = 0.6;
-              } else if (parseFloat(flight.numberOfStops) === 2) {
-                flight.scores.stops = 0.3;
-              } else {
-                flight.scores.stops = 0;
-              }
-              break;
-
-            case "fare":
-              flight.scores.fare = flights.PriceRange.MinFare / parseFloat(flight.totalPrice);
-              break;
-
-            case "time":
-              flight.scores.time = flights.TotalTravelTimeRange.MinTotalTravelTime / parseFloat(flight.totalTripDuration);
-              break;
-
-            case "outboundDepartTime":
-              flight.scores.outboundDepartTime = fuzzyMember(
-                parseFloat(flight.departureTime),
-                [preference.worst.end, preference.best.start, preference.best.end, preference.worst.start],
-                1440);
-              break;
-
-            case "outboundArrivalTime":
-              flight.scores.outboundArrivalTime = fuzzyMember(
-                parseFloat(flight.arrivalTime),
-                [preference.worst.end, preference.best.start, preference.best.end, preference.worst.start],
-                1440);
-              break;
-
-            case "connectionQuality":
-              flight.scores.connectionQuality = 1.0;
-              _.each(flight.connectionTimes, function(cnxTime) {
-                var cnxTimeNum = parseFloat(cnxTime);
-                if (cnxTimeNum == 0) {
-                  flight.scores.connectionQuality *= 1;
-                } else if (cnxTimeNum <= 60) {
-                  flight.scores.connectionQuality *= (1 / 60) * cnxTimeNum;
-                } else {
-                  flight.scores.connectionQuality *= 60 / cnxTimeNum;
+                if(parseFloat(flight.numberOfStops) === 0) {
+                  flight.scores.stopsScore = 1;
                 }
-              });
-              if (parseFloat(flight.numberOfStops) === 0) {
-                flight.scores.connectionQuality = 1;
-              }
+                  else if (parseFloat(flight.numberOfStops) === 1) {
+                  flight.scores.stopsScore = 0.6;
+                }
+                else if (parseFloat(flight.numberOfStops) === 2) {
+                  flight.scores.stopsScore = 0.3;
+                }
+                  else {
+                  flight.scores.stopsScore = 0;
+                }
+                flight.scores.topsis[i][k] += flight.scores.stopsScore * preference.weights[k];
+            case "fare":
+              flight.scores.fareScore = fuzzyMember(
+                  Math.log(parseFloat(flight.totalPrice)),
+                  [0, 0, Math.log(flights.PriceRange.BestFare), Math.log(flights.PriceRange.WorstFare)]
+              );
+              flight.scores.topsis[i][k] += flight.scores.fareScore * preference.weights[k];
               break;
-
+            case "time":
+              flight.scores.timeScore = fuzzyMember(
+                  Math.log(flight.totalTripDuration),
+                  [0, 0, Math.log(flights.TotalTravelTimeRange.BestTotalTravelTime), Math.log(flights.TotalTravelTimeRange.WorstTotalTravelTime)]
+              );
+              flight.scores.topsis[i][k] += flight.scores.timeScore * preference.weights[k];
+              break;
+            case "outboundDepartTime":
+              flight.scores.obdtScore = fuzzyMember(
+                  parseFloat(flight.departureTime),
+                  [preference.worst.end, preference.best.start, preference.best.end, preference.worst.start],
+                  1440
+              );
+              flight.scores.topsis[i][k] += flight.scores.obdtScore * preference.weights[k];
+              break;
+            case "outboundArrivalTime":
+              flight.scores.obatScore = fuzzyMember(
+                  parseFloat(flight.arrivalTime),
+                  [preference.worst.end, preference.best.start, preference.best.end, preference.worst.start],
+                  1440
+              );
+              flight.scores.topsis[i][k] += flight.scores.obatScore * preference.weights[k];
+              break;
+            case "connectionQuality":
+              flight.scores.connQualityScore = 1.0;
+              _.each(flight.connectionTimes, function (cnxTime) {
+                flight.scores.connQualityScore *= fuzzyMember(
+                    parseFloat(cnxTime),
+                    [preference.worst.end, preference.best.start, preference.best.end, preference.worst.start],
+                    1440
+                );
+              });
+                if(parseFloat(flight.numberOfStops) === 0) {
+                  flight.scores.connQualityScore = 1;
+                }
+              flight.scores.topsis[i][k] += flight.scores.connQualityScore * preference.weights[k];
+              break;
           }
-        //}
+        }
       });
+      var sPlus = [0, 0, 0, 0],
+          sMinus = [0, 0, 0, 0];
+      for (var k = 0; k < 4; k++) {
+        for (var i = 0; i < pref.preferences.length; i++) {
+          sMinus[k] += (flight.scores.topsis[i][k]    ) * (flight.scores.topsis[i][k]    );
+          sPlus [3 - k] += (flight.scores.topsis[i][k] - 1) * (flight.scores.topsis[i][k] - 1);
+        }
+        sMinus[k] = Math.sqrt(sMinus[k]);
+        sPlus[3 - k] = Math.sqrt(sPlus[3 - k]);
+      }
+      flight.scores.sPlus = sPlus;
+      flight.scores.sMinus = sMinus;
+      flight.scores.lPlus = fuzzyLength(sPlus);
+      flight.scores.lMinus = fuzzyLength(sMinus);
+      flight.topsisScore = flight.scores.lMinus / (flight.scores.lPlus + flight.scores.lMinus);
+
+      delete flight.scores.lMinus;
+      delete flight.scores.sMinus;
+      delete flight.scores.lPlus;
+      delete flight.scores.sPlus;
+      delete flight.scores.topsis;
     });
 
-    var ideal_solution = {};
-    var negative_ideal_solution = {};
-
-    _.each(pref.preferences, function(preference, i) {
-      // standardize the decision matrix
-      sum_of_squares = 0;
-      _.each(flights.flights, function(flight) {
-        sum_of_squares += flight.scores[preference.name] * flight.scores[preference.name];
-      });
-      sqrt_sum_squares = Math.sqrt(sum_of_squares);
-      _.each(flights.flights, function(flight) {
-        flight.scores[preference.name] = flight.scores[preference.name] / sqrt_sum_squares;
-      });
-
-      // multiply the respective preference weights
-      _.each(flights.flights, function(flight) {
-        flight.scores[preference.name] = flight.scores[preference.name] * preference.desirability;
-      });
-
-      // find ideal solution
-      ideal_solution[preference.name] = -Infinity;
-      _.each(flights.flights, function(flight) {
-        ideal_solution[preference.name] = Math.max(flight.scores[preference.name], ideal_solution[preference.name]);
-      });
-
-      // find negative ideal solution
-      negative_ideal_solution[preference.name] = Infinity;
-      _.each(flights.flights, function(flight) {
-        negative_ideal_solution[preference.name] = Math.min(flight.scores[preference.name], negative_ideal_solution[preference.name]);
-      });
-
-    });
-
-    // find separation from ideal and negative ideal solution and then calculate topsis score
-    _.each(flights.flights, function(flight) {
-      flight.ideal_separation = 0;
-      flight.negative_ideal_separation = 0;
-
-      _.each(pref.preferences, function(preference, i) {
-        flight.ideal_separation += (flight.scores[preference.name] - ideal_solution[preference.name]) * (flight.scores[preference.name] - ideal_solution[preference.name]);
-        flight.negative_ideal_separation += (flight.scores[preference.name] - negative_ideal_solution[preference.name]) * (flight.scores[preference.name] - negative_ideal_solution[preference.name]);
-      });
-
-      flight.ideal_separation = Math.sqrt(flight.ideal_separation);
-      flight.negative_ideal_separation = Math.sqrt(flight.negative_ideal_separation);
-      flight.topsisScore = flight.negative_ideal_separation / (flight.ideal_separation + flight.negative_ideal_separation);
-    });
-
-    var sortedFlights = _.sortBy(flights.flights, function(flight) {
+    var sortedFlights = _.sortBy(flights.flights, function (flight) {
       return flight.topsisScore;
     }).reverse();
 
